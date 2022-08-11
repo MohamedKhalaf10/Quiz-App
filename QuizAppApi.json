@@ -1,0 +1,31 @@
+{
+  "results": [
+    {
+      "question": "What is Vue.js?",
+      "choices": [
+        { "text": "Framework", "id": "1" },
+        { "text": "Library", "id": "2" },
+        { "text": "Type of hat", "id": "3" }
+      ],
+      "correctAnswer": "1"
+    },
+    {
+      "question": "What is Vuex used for?",
+      "choices": [
+        { "text": "Eating a delicious snack", "id": "1" },
+        { "text": "Viewing things", "id": "2" },
+        { "text": "State managment", "id": "3" }
+      ],
+      "correctAnswer": "3"
+    },
+    {
+      "question": "What is Vue Router?",
+      "choices": [
+        { "text": "Ice cream maker", "id": "1" },
+        { "text": "Routing library for vue", "id": "2" },
+        { "text": "Burger sauce", "id": "3" }
+      ],
+      "correctAnswer": "2"
+    }
+  ]
+}
