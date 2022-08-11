@@ -1,56 +1,58 @@
 <template>
-  <h1>Simple Quiz</h1>
-  <div class="box">
-    <!-- Start Quiz -->
-    <div v-if="counter <= 2" class="question">
-      {{ questions[counter].question }}
+  <main v-if="questions !== ''">
+    <h1>Simple Quiz</h1>
+    <div class="box">
+      <!-- Start Quiz -->
+      <div v-if="counter <= 2" class="question">
+        {{ questions[counter].question }}
+      </div>
+      <ul v-if="counter <= 2" class="choices">
+        <li
+          v-for="choice in questions[counter].choices"
+          :key="choice.id"
+          :id="choice.id"
+          @click="answer($event)"
+          :class="{
+            on: !selectedAnswer,
+            'correct-ans':
+              questions[counter].correctAnswer === choice.id && selectedAnswer,
+            'wrong-ans':
+              questions[counter].correctAnswer !== choice.id &&
+              selectedAnswer === choice.id,
+          }"
+        >
+          {{ choice.text }}
+        </li>
+      </ul>
+      <!-- End Quiz -->
+      <!-- Start Result -->
+      <h2 v-if="counter > 2">Results</h2>
+      <div v-if="counter > 2" class="results">
+        <span class="correct"
+          >Correct Answers:
+          <span
+            style="
+              color: darkgreen;
+              font-weight: bold;
+              font-size: 20px;
+              margin-right: 10px;
+            "
+            >{{ this.correctAnswers }}</span
+          ></span
+        >
+        <span class="wrong"
+          >Wrong Answers:
+          <span style="color: darkred; font-weight: bold; font-size: 20px">{{
+            3 - this.correctAnswers
+          }}</span></span
+        >
+      </div>
+      <!-- End Result -->
+      <button v-if="selectedAnswer || finished" @click="nextQ()">
+        {{ buttonText }}
+      </button>
     </div>
-    <ul v-if="counter <= 2" class="choices">
-      <li
-        v-for="choice in questions[counter].choices"
-        :key="choice.id"
-        :id="choice.id"
-        @click="answer($event)"
-        :class="{
-          on: !selectedAnswer,
-          'correct-ans':
-            questions[counter].correctAnswer === choice.id && selectedAnswer,
-          'wrong-ans':
-            questions[counter].correctAnswer !== choice.id &&
-            selectedAnswer === choice.id,
-        }"
-      >
-        {{ choice.text }}
-      </li>
-    </ul>
-    <!-- End Quiz -->
-    <!-- Start Result -->
-    <h2 v-if="counter > 2">Results</h2>
-    <div v-if="counter > 2" class="results">
-      <span class="correct"
-        >Correct Answers:
-        <span
-          style="
-            color: darkgreen;
-            font-weight: bold;
-            font-size: 20px;
-            margin-right: 10px;
-          "
-          >{{ this.correctAnswers }}</span
-        ></span
-      >
-      <span class="wrong"
-        >Wrong Answers:
-        <span style="color: darkred; font-weight: bold; font-size: 20px">{{
-          3 - this.correctAnswers
-        }}</span></span
-      >
-    </div>
-    <!-- End Result -->
-    <button v-if="selectedAnswer || finished" @click="nextQ()">
-      {{ buttonText }}
-    </button>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -58,35 +60,6 @@ export default {
   data() {
     return {
       counter: 0,
-      questions: [
-        {
-          question: "What is Vue.js?",
-          choices: [
-            { text: "Framework", id: "1" },
-            { text: "Library", id: "2" },
-            { text: "Type of hat", id: "3" },
-          ],
-          correctAnswer: "1",
-        },
-        {
-          question: "What is Vuex used for?",
-          choices: [
-            { text: "Eating a delicious snack", id: "1" },
-            { text: "Viewing things", id: "2" },
-            { text: "State managment", id: "3" },
-          ],
-          correctAnswer: "3",
-        },
-        {
-          question: "What is Vue Router?",
-          choices: [
-            { text: "Ice cream maker", id: "1" },
-            { text: "Routing library for vue", id: "2" },
-            { text: "Burger sauce", id: "3" },
-          ],
-          correctAnswer: "2",
-        },
-      ],
       selectedAnswer: false,
       correctAnswers: 0,
     };
@@ -112,6 +85,9 @@ export default {
     },
   },
   computed: {
+    questions() {
+      return this.$store.state.questions;
+    },
     buttonText() {
       if (this.counter < 2) {
         return "Next >";
@@ -124,6 +100,9 @@ export default {
     finished() {
       return this.counter === 3;
     },
+  },
+  created() {
+    this.$store.dispatch("fetchQuestions");
   },
 };
 </script>
