@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <h1>Welcome to My Super Amazing Quiz</h1>
+    <h1>Welcome Super Amazing Quiz</h1>
     <button @click="startQuiz()">Start</button>
     <span class="counter" v-if="startCount">{{ counter }}</span>
   </div>
