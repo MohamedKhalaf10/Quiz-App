@@ -1,16 +1,15 @@
 <template>
   <main v-if="questions !== ''">
-    <h1>Simple Quiz</h1>
-    <div class="box">
+    <div class="quiz">
       <!-- Start Quiz -->
-      <div v-if="counter <= numberOfQuestions - 1" class="timer">
+      <div class="timer">
         <span class="time" :style="{ width: percentageofTimer }"></span>
         <span v-if="timer === 0" class="time-up">Time's Up</span>
       </div>
-      <div v-if="counter <= numberOfQuestions - 1" class="question">
+      <div class="question">
         {{ questions[counter].question }}
       </div>
-      <ul v-if="counter <= numberOfQuestions - 1" class="choices">
+      <ul class="choices">
         <li
           v-for="choice in questions[counter].choices"
           :key="choice.id"
@@ -28,25 +27,13 @@
           {{ choice.text }}
         </li>
       </ul>
-      <div v-if="counter <= numberOfQuestions - 1" class="progress">
+      <div class="progress">
         <span class="indicator" :style="{ width: percentageOfIndicator }">
         </span>
         <span class="num"> {{ counter + 1 }}/{{ numberOfQuestions }}</span>
       </div>
       <!-- End Quiz -->
-      <!-- Start Result -->
-      <h2 v-if="counter > numberOfQuestions - 1">Results</h2>
-      <div v-if="counter > numberOfQuestions - 1" class="results">
-        <span class="correct-num"
-          >Correct Answers: <span>{{ this.correctAnswers }}</span></span
-        >
-        <span class="wrong-num"
-          >Wrong Answers:
-          <span>{{ numberOfQuestions - correctAnswers }}</span></span
-        >
-      </div>
-      <!-- End Result -->
-      <button v-if="selectedAnswer || timer === 0 || finished" @click="nextQ()">
+      <button v-if="selectedAnswer || timer === 0" @click="nextQ()">
         {{ buttonText }}
       </button>
     </div>
@@ -58,9 +45,7 @@ export default {
   data() {
     return {
       timer: 100,
-      counter: 0,
       selectedAnswer: false,
-      correctAnswers: 0,
     };
   },
   methods: {
@@ -68,20 +53,15 @@ export default {
       if (!this.selectedAnswer) {
         this.selectedAnswer = e.target.id;
         if (this.questions[this.counter].correctAnswer === e.target.id) {
-          this.correctAnswers++;
+          this.$store.dispatch("increaseCorrectAnswers");
         }
       }
     },
     nextQ() {
       this.timer = 100;
-      if (this.counter <= this.numberOfQuestions - 1) {
-        this.countDown();
-        this.selectedAnswer = false;
-        this.counter++;
-      } else {
-        this.counter = 0;
-        this.correctAnswers = 0;
-      }
+      this.countDown();
+      this.selectedAnswer = false;
+      this.$store.dispatch("increaseCounter");
     },
     countDown() {
       let timeCounter = setInterval(() => {
@@ -105,7 +85,13 @@ export default {
       return this.$store.state.questions;
     },
     numberOfQuestions() {
-      return this.questions.length;
+      return this.$store.state.numberOfQuestions;
+    },
+    counter() {
+      return this.$store.state.counter;
+    },
+    correctAnswers() {
+      return this.$store.state.correctAnswers;
     },
     percentageOfIndicator() {
       return ((this.counter + 1) / this.numberOfQuestions) * 100 + "%";
@@ -113,39 +99,23 @@ export default {
     buttonText() {
       if (this.counter < this.numberOfQuestions - 1) {
         return "Next >";
-      } else if (this.counter === this.numberOfQuestions - 1) {
-        return "Finish";
       } else {
-        return "Play Again";
+        return "Finish";
       }
-    },
-    finished() {
-      return this.counter === this.numberOfQuestions;
     },
   },
   created() {
-    this.$store.dispatch("fetchQuestions");
     this.countDown();
   },
 };
 </script>
 
 <style scoped lang="scss">
-h1 {
-  color: #303f9f;
-  text-align: center;
-}
-.box {
+.quiz {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  background-color: white;
-  padding: 30px;
-  text-align: left;
-  border-radius: 6px;
-  box-shadow: 5px 5px 10px #b4b4b4;
-  width: 400px;
   .timer {
     margin-bottom: 20px;
     font-weight: bold;
@@ -189,23 +159,6 @@ h1 {
       cursor: pointer;
       &:hover {
         background-color: #eee;
-      }
-    }
-  }
-  .results {
-    .correct-num {
-      & > span {
-        color: darkgreen;
-        font-weight: bold;
-        font-size: 20px;
-        margin-right: 10px;
-      }
-    }
-    .wrong-num {
-      & > span {
-        color: darkred;
-        font-weight: bold;
-        font-size: 20px;
       }
     }
   }

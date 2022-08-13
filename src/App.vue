@@ -1,17 +1,10 @@
 <template>
-  <QuizPage />
+  <nav>
+    <router-link :to="{ name: 'HomePage' }">Home</router-link> |
+    <router-link :to="{ name: 'CreateQuiz' }">Create New Quiz</router-link>
+  </nav>
+  <router-view />
 </template>
-
-<script>
-import QuizPage from "./components/QuizPage.vue";
-
-export default {
-  name: "App",
-  components: {
-    QuizPage,
-  },
-};
-</script>
 
 <style lang="scss">
 body {
@@ -24,6 +17,20 @@ body {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+  }
+
+  nav {
+    padding: 30px;
+
+    a {
+      font-weight: bold;
+      color: #2c3e50;
+
+      &.router-link-exact-active {
+        color: #303f9f;
+      }
+    }
   }
 }
 </style>
