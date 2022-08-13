@@ -3,6 +3,11 @@
     <h1>Welcome to Super Awsome Quiz</h1>
     <button @click="startQuiz()">Start</button>
     <span class="counter" v-if="startCount">{{ counter }}</span>
+    <footer>
+      <a href="https://github.com/MohamedKhalaf10/Quiz-App">
+        Check GitHub Repo</a
+      >
+    </footer>
   </div>
 </template>
 
@@ -42,7 +47,7 @@ export default {
   font-weight: bold;
 
   h1 {
-    width: 450px;
+    width: 400px;
     margin-bottom: 30px;
   }
   button {
@@ -64,6 +69,13 @@ export default {
     margin-top: 20px;
     font-size: 40px;
     color: red;
+  }
+  footer {
+    margin-top: 40px;
+    a {
+      text-decoration: none;
+      color: red;
+    }
   }
 }
 </style>
