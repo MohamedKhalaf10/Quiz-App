@@ -2,6 +2,7 @@
   "quizzes": [
     {
       "name": "First Default Quiz",
+      "id": "1",
       "questions": [
         {
           "question": "What is Vue.js?",
@@ -34,6 +35,7 @@
     },
     {
       "name": "Second Default Quiz",
+      "id": "2",
       "questions": [
         {
           "question": "What is HTML?",
