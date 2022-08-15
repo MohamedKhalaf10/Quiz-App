@@ -1,31 +1,68 @@
 {
-  "results": [
+  "quizzes": [
     {
-      "question": "What is Vue.js?",
-      "choices": [
-        { "text": "Framework", "id": "1" },
-        { "text": "Library", "id": "2" },
-        { "text": "Type of hat", "id": "3" }
-      ],
-      "correctAnswer": "1"
+      "name": "First Default Quiz",
+      "questions": [
+        {
+          "question": "What is Vue.js?",
+          "choices": [
+            { "text": "Framework", "id": "1" },
+            { "text": "Library", "id": "2" },
+            { "text": "Type of hat", "id": "3" }
+          ],
+          "correctAnswer": "1"
+        },
+        {
+          "question": "What is Vuex used for?",
+          "choices": [
+            { "text": "Eating a delicious snack", "id": "1" },
+            { "text": "Viewing things", "id": "2" },
+            { "text": "State managment", "id": "3" }
+          ],
+          "correctAnswer": "3"
+        },
+        {
+          "question": "What is Vue Router?",
+          "choices": [
+            { "text": "Ice cream maker", "id": "1" },
+            { "text": "Routing library for vue", "id": "2" },
+            { "text": "Burger sauce", "id": "3" }
+          ],
+          "correctAnswer": "2"
+        }
+      ]
     },
     {
-      "question": "What is Vuex used for?",
-      "choices": [
-        { "text": "Eating a delicious snack", "id": "1" },
-        { "text": "Viewing things", "id": "2" },
-        { "text": "State managment", "id": "3" }
-      ],
-      "correctAnswer": "3"
-    },
-    {
-      "question": "What is Vue Router?",
-      "choices": [
-        { "text": "Ice cream maker", "id": "1" },
-        { "text": "Routing library for vue", "id": "2" },
-        { "text": "Burger sauce", "id": "3" }
-      ],
-      "correctAnswer": "2"
+      "name": "Second Default Quiz",
+      "questions": [
+        {
+          "question": "What is HTML?",
+          "choices": [
+            { "text": "HyperText Markup Language", "id": "1" },
+            { "text": "Clothes Store", "id": "2" },
+            { "text": "Electric Razor", "id": "3" }
+          ],
+          "correctAnswer": "1"
+        },
+        {
+          "question": "What is CSS?",
+          "choices": [
+            { "text": "Famous Spy Agent Name", "id": "1" },
+            { "text": "Shoes Type", "id": "2" },
+            { "text": "Cascading Style Sheet", "id": "3" }
+          ],
+          "correctAnswer": "3"
+        },
+        {
+          "question": "What is JavaScript?",
+          "choices": [
+            { "text": "Secret Language", "id": "1" },
+            { "text": "Scripting Language", "id": "2" },
+            { "text": "Pencil Company", "id": "3" }
+          ],
+          "correctAnswer": "2"
+        }
+      ]
     }
   ]
 }
