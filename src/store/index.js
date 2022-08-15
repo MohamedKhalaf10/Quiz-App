@@ -3,17 +3,22 @@ import axios from "axios";
 
 export default createStore({
   state: {
+    quizzes: "",
+    selectedQuiz: null,
     questions: "",
     numberOfQuestions: null,
     counter: 0,
     correctAnswers: 0,
   },
   mutations: {
-    SET_QUESTIONS(state, questions) {
-      state.questions = questions;
+    SET_QUIZZES(state, quizzes) {
+      state.quizzes = quizzes;
     },
-    SET_NUMBER_OF_QUESTIONS(state, number) {
-      state.numberOfQuestions = number;
+    SET_QUESTIONS(state) {
+      state.questions = state.selectedQuiz.questions;
+    },
+    SET_NUMBER_OF_QUESTIONS(state) {
+      state.numberOfQuestions = state.selectedQuiz.questions.length;
     },
     INCREASE_COUNTER_BY_ONE(state) {
       state.counter++;
@@ -27,16 +32,19 @@ export default createStore({
     },
   },
   actions: {
-    fetchQuestions({ commit }) {
+    fetchQuizzes({ commit }) {
       axios
         .get("https://mohamedkhalaf10.github.io/Quiz-App/QuizAppApi.json")
         .then((response) => {
-          commit("SET_QUESTIONS", response.data.results);
-          commit("SET_NUMBER_OF_QUESTIONS", response.data.results.length);
+          commit("SET_QUIZZES", response.data.quizzes);
         })
         .catch((error) => {
           console.log("Error:", error);
         });
+    },
+    setQuestions({ commit }) {
+      commit("SET_QUESTIONS");
+      commit("SET_NUMBER_OF_QUESTIONS");
     },
     increaseCounter({ commit }) {
       commit("INCREASE_COUNTER_BY_ONE");

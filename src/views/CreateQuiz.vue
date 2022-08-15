@@ -1,3 +1,3 @@
 <template>
-  <h1>Sorry, the page is still under development</h1>
+  <h1>Sorry, This Page is Still Under Development</h1>
 </template>
